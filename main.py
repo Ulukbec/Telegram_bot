@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher
 from aiogram import types
 from aiogram.utils import executor
 
-TOKEN = "5687627682:AAGhdtcDP4UdFwbduh_dc5p2o4i51YvDmM0"
+TOKEN = "5637838218:AAFSEZXAha4ApD9iSAP-pIK5oMK6BFq8NV4"
 bot = Bot(TOKEN)
 dp = Dispatcher(bot=bot)
 
@@ -22,8 +22,8 @@ async def help_comm(message: types.Message):
 
 
 @dp.message_handler(commands=['my_info'])
-async def my_info(messege: types.Message):
-    await messege.answer(f'{messege.from_user.first_name} {messege.from_user.last_name}, {messege.from_id}')
+async def my_info(message: types.Message):
+    await message.answer(f'{message.from_user.first_name} {message.from_user.last_name}, {message.from_id}')
 
 
 @dp.message_handler(commands=['show_movies'])
@@ -52,11 +52,20 @@ async def movies(message: types.Message):
 #     await bot.send_message(message.from_user.id, "город")
 
 
-# @dp.message_handler(commands=['download_photo'])
-# async def photo(message: types.Message):
-#     photos = await bot.get_user_profile_photos(message.from_user.id)
-#     await bot.get_file(photos['photos'][0][0]['file_id'])
-#     await bot.send_photo(message.chat.id['photos'][0][0]['file_id'])
+@dp.message_handler(commands=['download_photo'])
+async def photo(message: types.Message):
+    photos = await bot.get_user_profile_photos(message.from_user.id)
+    await bot.get_file(photos['photos'][0][0]['file_id'])
+    await bot.send_photo(message.chat.id, photo=photos['photos'][0][0]['file_id'])
+
+
+@dp.message_handler(commands=['send_my_info'])
+async def show_my_info(message: types.Message):
+    arguments = message.text.split('\n')
+    await bot.send_message(message.chat.id,
+                           text=f'1. Вас зовут {arguments[1]} {arguments[2]}\n2. Вам {arguments[3]} лет\n3.'
+                                f' Вы занимаетесь {arguments[4]}\n4. Список ваших любимых сериалов и фильмов:'
+                                f' {arguments[5]}')
 
 
 if __name__ == "__main__":
