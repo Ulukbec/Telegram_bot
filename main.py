@@ -52,11 +52,11 @@ async def movies(message: types.Message):
 #     await bot.send_message(message.from_user.id, "город")
 
 
-@dp.message_handler(commands=['download_photo'])
-async def photo(message: types.Message):
-    photos = await bot.get_user_profile_photos(message.from_user.id)
-    await bot.get_file(photos['photos'][0][0]['file_id'])
-    await bot.send_photo(message.chat.id['photos'][0][0]['file_id'])
+# @dp.message_handler(commands=['download_photo'])
+# async def photo(message: types.Message):
+#     photos = await bot.get_user_profile_photos(message.from_user.id)
+#     await bot.get_file(photos['photos'][0][0]['file_id'])
+#     await bot.send_photo(message.chat.id['photos'][0][0]['file_id'])
 
 
 if __name__ == "__main__":
