@@ -1,6 +1,10 @@
 from aiogram import Bot, Dispatcher
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
 from aiogram import types
 from aiogram.utils import executor
+
+
+
 
 TOKEN = "5637838218:AAFSEZXAha4ApD9iSAP-pIK5oMK6BFq8NV4"
 bot = Bot(TOKEN)
@@ -9,8 +13,13 @@ dp = Dispatcher(bot=bot)
 
 @dp.message_handler(commands=['start'])
 async def start_comm(message: types.Message):
+    button1 = KeyboardButton("NEXT")
+    button2 = KeyboardButton("NEXT", )
+    markup = ReplyKeyboardMarkup()
+    markup.add(button1)
+    markup.add(button2)
     me_bot = await bot.get_me()
-    await message.answer(f"вас приветствует {me_bot.first_name}")
+    await message.answer(f"вас приветствует {me_bot.first_name}", reply_markup=markup)
 
 
 @dp.message_handler(commands=['help'])
@@ -44,12 +53,6 @@ async def movies(message: types.Message):
 @dp.message_handler(commands=['SMILE'])
 async def movies(message: types.Message):
     await message.answer('https://kinogo.zone/films/16464-ulybka-2022-hd-v2.html')
-
-
-#
-# @dp.message_handler(commands=["send_my_info"])
-# async def weather(message: types.Message):
-#     await bot.send_message(message.from_user.id, "город")
 
 
 @dp.message_handler(commands=['download_photo'])
